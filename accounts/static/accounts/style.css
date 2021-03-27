@@ -1,0 +1,9 @@
+.attention {
+    color: red;
+}
+
+@media screen and (min-width: 1000px) {
+    .form-table {
+        width: 100%;
+    }
+}

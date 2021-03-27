@@ -1,0 +1,33 @@
+@startuml
+rectangle Local {
+    frame Django {
+        folder Accounts
+        folder Condition
+    }
+}
+cloud github {
+
+}
+cloud HEROKU {
+    rectangle server {
+
+    }
+    rectangle "heroku scheduler" as hs {
+
+    }
+}
+rectangle slack {
+    rectangle webhook {
+
+    }
+}
+actor ユーザー
+Django <--> github : ソースコード管理
+server <-- Django : push
+github <-[dotted]-> HEROKU : 連携が可能
+hs --> webhook : slack通知
+server -> hs : 定期実行
+server --> ユーザー : 常時実行
+slack --> ユーザー
+
+@enduml

@@ -1,0 +1,26 @@
+{% load static %}
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+<!DOCTYPE html>
+<html lang="ja">
+  <body>
+    {% if login_form.errors  %}
+    <p>名前, パスワードが一致しません．</p>
+    {% endif %}
+    <body class="form-table">
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <p><label>名前</label>
+        {{ login_form.username }}
+        {{ login_form.username.errors }}</p>
+        <p><label>パスワード</label>
+        {{ login_form.password }}
+        {{ login_form.password.errors }}</p>
+        <p><button type = "submit">ログイン</button>
+        <a href="{% url 'create_account' %}" style="font-size: 12px;">アカウント作成</a></p>
+      </form>
+    </body>
+  </body>
+</html>

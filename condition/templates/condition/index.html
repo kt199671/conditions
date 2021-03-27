@@ -1,0 +1,88 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="display-4 text-primary">{{title}}</h1>
+    <p class="h5 mt-4">{{message|safe}}</p>
+    <table class="table">
+        <tr>
+            <th>name</th>
+            <th>temperature</th>
+            <th>conditioning</th>
+            <th>content</th>
+            <th>date</th>
+            <th>time</th>
+        </tr>
+    {% for item in data %}
+        <tr>
+            <td>{{item.owner}}</td>
+            <td>{{item.temperature}}</td>
+            <td>{% if item.conditioning == False %}good{% endif %}
+                {% if item.conditioning == True %}no good{% endif %}</td>
+            <td>{{item.content}}</td>
+            <td>{{item.pub_date}}</td>
+            <td>{{item.pub_time}}</td>
+            <td><a href= "{% url 'condition:edit' item.id %}">Edit</a></td>
+            <td><a href= "{% url 'condition:delete' item.id %}">Delete</a></td>
+        <tr>
+    {% endfor %}
+    </table>
+    <ul class="pagination">
+        {% if data.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="{% url 'condition:index' %}">
+                &laquo; first</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+            href="{% url 'condition:index' %}{{data.previous_page_number}}">
+                &laquo; prev</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link">
+                &laquo; first</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">
+                &laquo; prev</a>
+        </li>
+        {% endif %}
+        <li class="page-item">
+            <a class="page-link">
+            {{data.number}}/{{data.paginator.num_pages}}</a>
+        </li>
+        {% if data.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+            href="{% url 'condition:index' %}{{data.next_page_number }}">
+                next &raquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+            href="{% url 'condition:index' %}{{data.paginator.num_pages}}">
+                last &raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link">
+                next &raquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">
+                last &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</body>
+<p><a href= "{% url 'condition:logout' %}">Logout</a></p>
+<p><a href= "{% url 'condition:post' %}">POST</a></p>
+<p><a href= "{% url 'condition:today' %}">TODAY</a></p>
+</html>

@@ -1,0 +1,32 @@
+{% load static %}
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+<!DOCTYPE html>
+<html lang="ja">
+  <body class="form-table">
+    <form method="POST" action="{% url 'create_account' %}">
+      {% csrf_token %}
+      <p><label>名前/name</label>
+      {{ signup_form.username }}
+      {{ signup_form.username.errors }}</p>
+      <p class="attention">
+        漢字で登録お願いします。(ex.姫野遼司)<br>
+        for non-Japanese player : Please fill it out in alphabet.(ex.Ryoji Himeno)
+      </p>
+      <p><label>パスワード/password</label>
+      {{ signup_form.password1 }}
+      {{ signup_form.password1.errors }}</p>
+      <p><label>パスワード(確認)/password(confirmation)</label>
+      {{ signup_form.password2 }}
+      {{ signup_form.password2.errors }}</p>
+      <p><label>position</label>
+      {{ signup_form.position }}
+      {{ signup_form.position.errors }}</p>
+      <button type = "submit">登録/register</button>
+      <a href="{% url 'login' %}" style="font-size: 12px;">ログイン画面/login page</a></p>
+
+    </form>
+  </body>
+</html>

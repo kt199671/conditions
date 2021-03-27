@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor "Team Member" as tm
+actor "Head Manager" as hm
+rectangle condition_app {
+    usecase "Create Account" as ca
+    usecase "Login" as lg
+    usecase "Post/Edit/Delete Own Condition" as ped
+    usecase "See Others Condition" as soc
+    usecase "Delete Others Condition" as doc
+    usecase "Delete Member" as dm
+    usecase "Fix Account" as fa
+}
+tm --> ca
+tm --> lg
+tm --> ped
+tm --> soc
+hm -->doc
+hm --> dm
+hm --> fa
+tm <|- hm
+@enduml
